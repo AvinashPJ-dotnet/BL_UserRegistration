@@ -12,7 +12,7 @@ import lombok.ToString;
 //@Getter
 //@Setter
 //@ToString
-@Entity
+@Entity      //model class
 public class User {
 
 	@Id
@@ -61,5 +61,10 @@ public class User {
 		this.password = password;
 	}
 	
-		
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", username=" + username + ", password=" + password + "]";
+	}
+	
 }

@@ -2,6 +2,8 @@ package com.bridgelab.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.bridgelab.model.User;
 
 public interface IUserService {
@@ -10,5 +12,10 @@ public interface IUserService {
 	
 	List<User> getAllUsers();
 	
-	User loginUser(User user);
+	ResponseEntity<String> loginUser(User user) ;
+	
+	ResponseEntity<User> updateUser(int id,User user);
+	
+	ResponseEntity<String> deleteUser(int id);
+	
 }
