@@ -4,18 +4,29 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.bridgelab.dto.LoginDTO;
+import com.bridgelab.dto.ResetPasswordDTO;
+import com.bridgelab.dto.ResponseDTO;
 import com.bridgelab.model.User;
 
 public interface IUserService {
 
-	User registerUser(User user);
+	ResponseDTO registerUser(User user);
 	
-	List<User> getAllUsers();
+	ResponseDTO getAllUsers();
 	
-	ResponseEntity<String> loginUser(User user) ;
+	ResponseDTO loginUser(LoginDTO user) ;
 	
-	ResponseEntity<User> updateUser(int id,User user);
+	ResponseDTO getUserById(int id);
 	
-	ResponseEntity<String> deleteUser(int id);
+	ResponseDTO updateUser(int id,User user);
+	
+	ResponseDTO deleteUser(int id);
+
+	ResponseDTO verifyUser(int id);
+
+	ResponseDTO forgotPassword(String email);
+	
+	ResponseDTO resetPassword(int id, ResetPasswordDTO resetPasswordDTO);
 	
 }

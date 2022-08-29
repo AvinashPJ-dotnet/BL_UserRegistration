@@ -1,70 +1,74 @@
 package com.bridgelab.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+
+import com.bridgelab.notes.model.Note;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-//@Getter
-//@Setter
-//@ToString
-@Entity      //model class
+//@JsonAutoDetect
+@Getter
+@Setter
+@ToString
+@Entity
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String firstName;
 	private String lastName;
+
+	@NotBlank(message = "Email is mandatory")
+	@Email
 	private String email;
+
+	@NotBlank(message = "Username is mandatory")
 	private String username;
+
+	@NotBlank(message = "Password is mandatory")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.+[0-9])(?=.*[%^<>?/:'}{()*!|.,;_#&$+=@]).{8,}$")
 	private String password;
-	public int getId() {
-		return id;
+
+	private boolean isVerified = false;
+
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "users")
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Note> notes;
+
+	public User() {
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
+
+	public User(String firstName, String lastName, String email, String username, String password) {
+		super();
 		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
 		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", username=" + username + ", password=" + password + "]";
-	}
-	
+
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+//				+ ", username=" + username + ", password=" + password + ", isVerified=" + isVerified + "]";
+//	}
+
 }
